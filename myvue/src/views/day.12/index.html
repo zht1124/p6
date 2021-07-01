@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./jquery.js">
+    <link rel="stylesheet" href="./bootstrap/js/bootstrap.min.js">
+</head>
+ <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            margin-top: 60px;
+        }
+    </style>
+<body>
+    <div class="container">
+        <!-- 上面的搜索框以及增加按钮 -->
+        <div class="row">
+            <div class="topbox" style="width: 80%;">
+                <form class="bs-example bs-example-form" role="form" style="float: left;width: 50%;">
+                    <div class="input-group">
+                        <input type="text" class="form-control ss">
+                        <span class="input-group-addon search"><span class="glyphicon glyphicon-search"></span></span>
+                    </div>
+                    <br>
+                </form>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: left;margin-left: 50px;">增加按钮</button>
+            </div>
+        </div>
+        <!-- 下面的表格数据渲染 -->
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>姓名</th>
+                    <th>邮箱</th>
+                    <th>电话</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>shao</td>
+                    <td>2968687993@qq.com</td>
+                    <td>15552147766</td>
+                    <td>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 增加的模态框 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+                    </div>
+                    <div class="modal-body">
+                        用户名: <input type="text" class="username"><br/><br/>
+                        密码:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="pass"><br/><br/>
+                        邮箱:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="email"><br/><br/>
+                        电话:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="phone">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="confirm">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改的模态框 -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        用户名: <input type="text" class="username1" disabled><br/><br/>
+                        邮箱:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="email1"><br/><br/>
+                        电话:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" class="phone1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm1">确定修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function yz(){
+        var reg1=/^[a-zA-Z]\w{3,15}/;
+        var reg2=/^[a-zA-Z0-9]{6,8}/;
+        var reg3=/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+        var reg4=/[0-9]{11}/;
+        if($(".username").val()==""||$(".pass").val()==""||$(".email").val()==""||$(".phone").val()==""){
+            alert("请输入对应的内容")
+        }else{
+            if(reg1.test($(".username").val())&&reg2.test($(".pass").val())&&reg3.test($(".email").val())&&reg4.test($(".phone").val())){
+                return true;
+            }else{
+                alert("您有格式不正确，请更正")
+            }
+        }
+    }
+    $("#confirm").on("click",function(){
+        $("#confirm").on("click",function(){
+            $("#confirm").attr("data-dismiss","modal");
+            $.get("http://localhost;8080/add",{
+                username:$(".username").val()
+            })
+        })
+    })
+</script>
+</html>
